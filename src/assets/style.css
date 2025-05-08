@@ -6,38 +6,38 @@
 }
 
 /* Estils globals */
+/* src/assets/global.css */
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background-color: #f4f8f9; /* Fons més clar per semblar una escola moderna */
-    color: #2c3e50; /* Text fosc per contrastar bé amb el fons */
-    min-height: 100vh;
+    background-color: #222;
+    color: #eee;
     display: flex;
-    flex-direction: column; /* Organitzar els elements en columna */
+    flex-direction: column;
+    min-height: 100vh;
 }
-
 /* Títols */
 h1, h2 {
-    color: #16a085; /* Verd com el color de l'uniforme de UA */
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Efecte d'ombra per fer-los més impactants */
-    font-family: 'Impact', sans-serif; /* Tipografia més agressiva, com la de la sèrie */
+    color: #ff4500; /* Taronja intens (foc) */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    font-family: 'Impact', sans-serif;
 }
 
 /* Enllaços */
 a {
-    color: #2980b9; /* Blau clar com el de la samarreta de Midoriya */
+    color: #fdd835; /* Groc brillant */
     text-decoration: none;
 }
 
 a:hover {
-    color: #d35400; /* Naranja com a destacat, inspirat per All Might */
+    color: #ff8a65; /* Taronja clar */
     text-decoration: underline;
 }
 
 /* Botons */
 button {
-    background-color: #27ae60; /* Verd intens com l'uniforme de UA */
-    color: white;
+    background-color: #ff4500; /* Taronja intens (foc) */
+    color: #eee;
     border: none;
     padding: 0.75rem 1.5rem;
     border-radius: 8px;
@@ -47,46 +47,50 @@ button {
 }
 
 button:hover {
-    background-color: #2ecc71; /* Verd més clar al passar per sobre */
+    background-color: #d63900; /* Taronja més fosc al passar per sobre */
 }
 
 /* Inputs */
 input {
-    border: 1px solid #2c3e50;
+    border: 1px solid #555;
     padding: 0.75rem;
     border-radius: 8px;
     font-family: 'Arial', sans-serif;
+    background-color: #444;
+    color: #eee;
 }
 
 /* Estils del Navbar */
 .navbar {
-    background-color: #16a085; /* Verd UA */
+    background-color: #333; /* Gris fosc */
     padding: 1rem;
     display: flex;
-    justify-content: space-around; /* Canviat a 'space-around' per un millor espai entre els enllaços */
+    justify-content: space-around;
     align-items: center;
     width: 100%;
     box-sizing: border-box;
+    border-bottom: 2px solid #ff4500; /* Borde inferior taronja */
 }
 
 .nav-link {
-    color: white;
+    color: #eee;
     text-decoration: none;
     padding: 1rem 2rem;
     border-radius: 8px;
     font-weight: bold;
     transition: background-color 0.3s;
     text-transform: uppercase;
-    margin: 0; /* Elimina qualsevol marge extra */
+    margin: 0;
 }
 
 .nav-link:hover {
-    background-color: #1abc9c; /* Verd més fosc */
+    background-color: #555; /* Gris més clar al passar per sobre */
+    color: #ff4500; /* Text taronja al hover */
 }
 
 /* Estil per al router-link actiu (pàgina actual) */
 .router-link-active {
-    color: #f39c12; /* Groc per destacar la pàgina activa */
+    color: #ff8a65; /* Taronja clar per destacar la pàgina activa */
     font-weight: bold;
 }
 
@@ -107,14 +111,14 @@ input {
 
 /* Estils per al Footer */
 footer {
-    background-color: #16a085 !important; /* Verd com l'uniforme de UA */
-    color: white;
+    background-color: #333 !important; /* Gris fosc */
+    color: #eee;
     text-align: center;
     padding: 1rem;
     font-size: 1rem;
     font-weight: bold;
-    border-top: 5px solid #2c3e50; /* Blau fosc */
+    border-top: 2px solid #ff4500; /* Borde superior taronja */
     font-family: 'Arial', sans-serif;
     width: 100%;
-    margin-top: auto; /* Aquesta línia és la clau */
+    margin-top: auto;
 }

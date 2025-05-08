@@ -1,62 +1,63 @@
 <template>
   <div class="container">
-    <h1>My Hero Academia - Personatges</h1>
+    <h1>{{ anime.title }}</h1>
 
     <div v-if="loading" class="loading">Carregant dades...</div>
     <div v-else>
-      <div
-        v-for="(personatge, index) in characters"
-        :key="index"
-        class="card"
-      >
-        <h2>{{ personatge.name }}</h2>
-        <p><strong>Quirk:</strong> {{ personatge.quirk }}</p>
-        <p><strong>Descripció:</strong> {{ personatge.quirk_description }}</p>
-        <p><strong>Escola:</strong> {{ personatge.hero_school }}</p>
-        <p><strong>Classe:</strong> {{ personatge.class }}</p>
+      <img :src="anime.images?.jpg?.large_image_url" alt="Portada de l'anime" class="anime-image">
+      <p class="synopsis">{{ anime.synopsis }}</p>
+
+      <div class="details">
+        <p><strong>Títol japonès:</strong> {{ anime.title_japanese }}</p>
+        <p><strong>Tipus:</strong> {{ anime.type }}</p>
+        <p><strong>Episodis:</strong> {{ anime.episodes }}</p>
+        <p><strong>Puntuació:</strong> {{ anime.score }}</p>
+      </div>
+
+      <h2>Personatges principals</h2>
+      <div class="characters">
+        <div v-for="character in characters" :key="character.character.mal_id" class="character-card">
+          <img :src="character.character.images?.jpg?.image_url" alt="Imatge del personatge">
+          <h3>{{ character.character.name }}</h3>
+          <p><strong>Rol:</strong> {{ character.role }}</p>
+        </div>
       </div>
     </div>
   </div>
 </template>
+
 <script>
 export default {
-  name: "Api",
+  name: "AnimeDetails",
   data() {
     return {
+      anime: {},
       characters: [],
       loading: true,
     };
   },
-  mounted() {
-    console.log('ApiData mounted');
-    this.fetchCharacters();
+  created() {
+    this.fetchAnimeData();
   },
   methods: {
-  async fetchCharacters() {
-    console.log('Intentant carregar personatges...');
-    this.loading = true;
-    try {
-      // Esperem la resposta de la funció fetch
-      const response = await fetch('/.netlify/functions/api-proxy');
-      
-      // Comprovem si la resposta és correcta
-      if (!response.ok) {
-        throw new Error(`Error HTTP: ${response.status}`);
+    async fetchAnimeData() {
+      this.loading = true;
+      try {
+        const animeResponse = await fetch("https://api.jikan.moe/v4/anime/51818");
+        const animeData = await animeResponse.json();
+        this.anime = animeData.data;
+
+        const charactersResponse = await fetch("https://api.jikan.moe/v4/anime/51818/characters");
+        const charactersData = await charactersResponse.json();
+        this.characters = charactersData.data;
+
+        this.loading = false;
+      } catch (error) {
+        console.error("Error carregant l'API de Jikan:", error);
+        this.loading = false;
       }
-
-      // Convertim la resposta a JSON
-      const data = await response.json();
-
-      // Assignem les dades al model de Vue
-      this.characters = data.students; // Ajusta això a les dades correctes si cal
-    } catch (err) {
-      console.error("Error carregant l'API:", err);
-    } finally {
-      // Tanquem la càrrega al final, tant si hi ha error com si no
-      this.loading = false;
-    }
+    },
   },
-},
 };
 </script>
 
@@ -64,52 +65,95 @@ export default {
 .container {
   font-family: 'Segoe UI', sans-serif;
   padding: 2rem;
-  background-color: #e3f2fd; /* Un blau molt clar de fons */
+  background: linear-gradient(to bottom, #333, #222); /* Fons fosc */
   text-align: center;
+  color: #eee;
 }
 
 h1 {
-  color: #1e88e5; /* Un blau més intens per al títol */
-  margin-bottom: 2rem;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  color: #ff4500; /* Taronja intens (foc) */
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .loading {
   font-size: 1.2rem;
-  color: #1e88e5;
+  color: #ff4500;
 }
 
-.card {
-  background-color: rgba(255, 255, 255, 0.8); /* Blanc semi-transparent */
-  margin: 1.5rem auto;
-  padding: 1.5rem;
-  max-width: 700px;
+.anime-image {
+  max-width: 400px;
+  width: 100%;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  text-align: left;
-  border-left: 5px solid #1e88e5;
-  color: #333;
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Transició per a l'escalat i la box-shadow */
-}
-
-.card:hover {
-  transform: scale(1.02); /* Escala lleugerament la targeta */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), 0 0 10px #2ecc71; /* Afegeix una ombra i un resplendor verd */
-}
-
-.card h2 {
-  color: #1e88e5;
-  margin-top: 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   margin-bottom: 1rem;
+  border: 2px solid #ff4500; /* Borde de foc */
 }
 
-.card p {
-  margin-bottom: 0.75rem;
-  color: #333;
+.synopsis {
+  text-align: justify;
+  margin-bottom: 1.5rem;
+  color: #ccc;
 }
 
-.card strong {
-  font-weight: bold;
-  color: #0d47a1; /* Un blau més fosc per al text important */
+.details {
+  background-color: rgba(0, 0, 0, 0.7); /* Fons semi-transparent fosc */
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  margin-bottom: 1.5rem;
+}
+
+.details p {
+  margin-bottom: 0.5rem;
+  color: #ddd;
+}
+
+h2 {
+  color: #ff4500;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.characters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.character-card {
+  background-color: rgba(0, 0, 0, 0.8); /* Targetes fosques */
+  margin: 1rem;
+  padding: 1rem;
+  max-width: 200px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  border: 1px solid #555;
+}
+
+.character-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7), 0 0 10px #ff4500; /* Resplendor al hover */
+}
+
+.character-card img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+
+.character-card h3 {
+  color: #eee;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.character-card p {
+  color: #ccc;
+  font-size: 0.9em;
 }
 </style>
