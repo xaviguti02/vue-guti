@@ -32,25 +32,31 @@ export default {
     this.fetchCharacters();
   },
   methods: {
-    async fetchCharacters() {
-      console.log('Intentant carregar personatges...');
-      this.loading = true;
-
-      try {
-        fetch('/.netlify/functions/api-proxy')
-        if (!response.ok) {
-          throw new Error(`Error HTTP: ${response.status}`);
-        }
-
-        const data = await response.json();
-        this.characters = data.students;
-      } catch (err) {
-        console.error("Error carregant l'API:", err);
-      } finally {
-        this.loading = false;
+  async fetchCharacters() {
+    console.log('Intentant carregar personatges...');
+    this.loading = true;
+    try {
+      // Esperem la resposta de la funció fetch
+      const response = await fetch('/.netlify/functions/api-proxy');
+      
+      // Comprovem si la resposta és correcta
+      if (!response.ok) {
+        throw new Error(`Error HTTP: ${response.status}`);
       }
-    },
+
+      // Convertim la resposta a JSON
+      const data = await response.json();
+
+      // Assignem les dades al model de Vue
+      this.characters = data.students; // Ajusta això a les dades correctes si cal
+    } catch (err) {
+      console.error("Error carregant l'API:", err);
+    } finally {
+      // Tanquem la càrrega al final, tant si hi ha error com si no
+      this.loading = false;
+    }
   },
+},
 };
 </script>
 
