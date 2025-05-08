@@ -27,28 +27,29 @@ export default {
       loading: true,
     };
   },
-  created() {
-    console.log('ApiData created');
-    this.fetchCharacters();
-  },
   mounted() {
     console.log('ApiData mounted');
     this.fetchCharacters();
   },
   methods: {
-    fetchCharacters() {
+    async fetchCharacters() {
       console.log('Intentant carregar personatges...');
       this.loading = true;
-      fetch('https://myheroacademia-api.onrender.com/personatges', { mode: 'no-cors' })
-      .then((res) => res.json())
-        .then((data) => {
-          this.characters = data.students;
-          this.loading = false;
-        })
-        .catch((err) => {
-          console.error("Error carregant l'API:", err);
-          this.loading = false;
-        });
+
+      try {
+        const response = await fetch('https://myheroacademia-api.onrender.com/personatges');
+        
+        if (!response.ok) {
+          throw new Error(`Error HTTP: ${response.status}`);
+        }
+
+        const data = await response.json();
+        this.characters = data.students;
+      } catch (err) {
+        console.error("Error carregant l'API:", err);
+      } finally {
+        this.loading = false;
+      }
     },
   },
 };
