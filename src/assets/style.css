@@ -1,0 +1,120 @@
+/* Estils globals */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estils globals */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f8f9; /* Fons més clar per semblar una escola moderna */
+    color: #2c3e50; /* Text fosc per contrastar bé amb el fons */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column; /* Organitzar els elements en columna */
+}
+
+/* Títols */
+h1, h2 {
+    color: #16a085; /* Verd com el color de l'uniforme de UA */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Efecte d'ombra per fer-los més impactants */
+    font-family: 'Impact', sans-serif; /* Tipografia més agressiva, com la de la sèrie */
+}
+
+/* Enllaços */
+a {
+    color: #2980b9; /* Blau clar com el de la samarreta de Midoriya */
+    text-decoration: none;
+}
+
+a:hover {
+    color: #d35400; /* Naranja com a destacat, inspirat per All Might */
+    text-decoration: underline;
+}
+
+/* Botons */
+button {
+    background-color: #27ae60; /* Verd intens com l'uniforme de UA */
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: 'Impact', sans-serif;
+}
+
+button:hover {
+    background-color: #2ecc71; /* Verd més clar al passar per sobre */
+}
+
+/* Inputs */
+input {
+    border: 1px solid #2c3e50;
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Estils del Navbar */
+.navbar {
+    background-color: #16a085; /* Verd UA */
+    padding: 1rem;
+    display: flex;
+    justify-content: space-around; /* Canviat a 'space-around' per un millor espai entre els enllaços */
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    text-transform: uppercase;
+    margin: 0; /* Elimina qualsevol marge extra */
+}
+
+.nav-link:hover {
+    background-color: #1abc9c; /* Verd més fosc */
+}
+
+/* Estil per al router-link actiu (pàgina actual) */
+.router-link-active {
+    color: #f39c12; /* Groc per destacar la pàgina activa */
+    font-weight: bold;
+}
+
+/* Efecte d'animació */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Aplicar animació als elements de la navbar */
+.navbar, .nav-link {
+    animation: fadeIn 1s ease-in-out;
+}
+
+/* Estils per al Footer */
+footer {
+    background-color: #16a085 !important; /* Verd com l'uniforme de UA */
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-top: 5px solid #2c3e50; /* Blau fosc */
+    font-family: 'Arial', sans-serif;
+    width: 100%;
+    margin-top: auto; /* Aquesta línia és la clau */
+}
