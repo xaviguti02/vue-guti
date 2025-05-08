@@ -39,7 +39,7 @@ export default {
     fetchCharacters() {
       console.log('Intentant carregar personatges...');
       this.loading = true;
-      fetch("/api/characters")
+      fetch('https://myheroacademia-api.onrender.com/personatges')
         .then((res) => res.json())
         .then((data) => {
           this.characters = data.students;
