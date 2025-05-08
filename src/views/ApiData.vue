@@ -37,8 +37,7 @@ export default {
       this.loading = true;
 
       try {
-        const response = await fetch('https://myheroacademia-api.onrender.com/personatges');
-        
+        fetch('/.netlify/functions/api-proxy')
         if (!response.ok) {
           throw new Error(`Error HTTP: ${response.status}`);
         }
